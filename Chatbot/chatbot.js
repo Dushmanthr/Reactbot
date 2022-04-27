@@ -1,3 +1,5 @@
+'use strict'
+
 const dialogflow = require('dialogflow');
 const config = require('../config/keys');
 
@@ -5,31 +7,31 @@ const sessionClient = new dialogflow.SessionsClient();
 
 const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID);
 
-module.exports = app => {
-    app.get('/',(req, res)=>{
-        res.send({'Hello': 'Johnny beson'})
-    });
-    
-    app.post('/api/df_text_query', async(req, res)=>{
- 
+module.exports = {
+    textQuery: async function(text, parameters = {}){
+        let self = module.exports;
         const request = {
             session: sessionPath,
             queryInput: {
               text: {
                 // The query to send to the dialogflow agent
-                text: req.body.text,
+                text: text,
                 // The language used by the client (en-US)
                 languageCode: config.dialogFlowSessionLanguageCode,
               },
             },
+            queryParams: {
+                payload: {
+                    data: parameters
+                }
+            }
           };
-          let responses = await sessionClient
-              .detectIntent(request)
+          let responses = await sessionClient.detectIntent(request);
+          responses = await self.handleAction(responses);
               
-        res.send(responses[0].queryResult);
-    });
-    
-    app.post('/api/df_event_query',(req, res)=>{
-        res.send({'do': 'event query'})
-    });
+    },
+
+    handleAction: function(responses){
+        return responses;
+    }
 }

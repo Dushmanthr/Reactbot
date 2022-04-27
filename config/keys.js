@@ -1,5 +1,6 @@
 module.exports = {
-    googleProjectID: 'reactbotagent-99ao',
+    googleProjectID: 'botagent-njgv',
     dialogFlowSessionID: 'react-bot-session',
     dialogFlowSessionLanguageCode: 'en-US'
+
 }
