@@ -10,9 +10,9 @@
   "scripts": {
     "start": "node index.js",
     "backend": "nodemon backend",
-    "frontend": "npm run start --prefix Client",
-    "dev": "concurently\"npm run backend\"\"npm run frontend\""
-   
+    "frontend": "npm run start --prefix client",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+
   },
   "author": "Dushmantha Ranathunga",
   "license": "ISC",
